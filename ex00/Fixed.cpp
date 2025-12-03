@@ -7,16 +7,9 @@ Fixed::Fixed ():_fixedPointValue(0) {
 	std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::~Fixed () {
-	std::cout << "Destructor called" << std::endl;
-}
-
 Fixed::Fixed(const Fixed &other) {
 	std::cout << "Copy constructor called" << std::endl;
-	// other.getRawBits() を呼ぶことで出力例の挙動を再現します
-	// 単に this->_fixedPointValue = other._fixedPointValue; でも機能的には同じですが、
-	// 課題の出力要件によっては getRawBits のログが必要な場合があります。
-	this->_fixedPointValue = other.getRawBits();
+	*this = other; // call copy assignment operator
 }
 
 Fixed &Fixed::operator=(const Fixed &other) {
@@ -43,5 +36,9 @@ int Fixed::getRawBits(void) const {
 
 void Fixed::setRawBits(int const raw) {
 	this->_fixedPointValue = raw;
+}
+
+Fixed::~Fixed () {
+	std::cout << "Destructor called" << std::endl;
 }
 
