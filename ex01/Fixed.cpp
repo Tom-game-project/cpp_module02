@@ -9,11 +9,11 @@ Fixed::Fixed ():_fixedPointValue(0) {
 	std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(const i32 value) : _fixedPointValue(value << _fractionalBits){
+Fixed::Fixed(const int value) : _fixedPointValue(value << _fractionalBits){
 	std::cout << "Int constructor called" << std::endl;
 }
 
-Fixed::Fixed(const f32 value): _fixedPointValue(std::roundf(value * (1 << _fractionalBits))){
+Fixed::Fixed(const float value): _fixedPointValue(roundf(value * (1 << _fractionalBits))){
 	std::cout << "Float constructor called" << std::endl;
 }
 
@@ -28,7 +28,6 @@ Fixed::~Fixed () {
 }
 
 // ^^^ Orthodox Canonical Form ^^^
-
 
 Fixed &Fixed::operator=(const Fixed &other) {
 	std::cout << "Copy assignment operator called" << std::endl;
@@ -47,91 +46,8 @@ Fixed &Fixed::operator=(const Fixed &other) {
 	return *this;
 }
 
-// === operators ===
-
-// compare
-
-// gt
-bool Fixed::operator>(const Fixed &other) const{
-    return this->getRawBits() > other.getRawBits();
-}
-
-// ge
-bool Fixed::operator>=(const Fixed &other) const{
-    return this->getRawBits() >= other.getRawBits();
-}
-
-// lt
-bool Fixed::operator<(const Fixed &other) const{
-    return this->getRawBits() < other.getRawBits();
-}
-
-// le
-bool Fixed::operator<=(const Fixed &other) const{
-    return this->getRawBits() <= other.getRawBits();
-}
-
-// eq
-bool Fixed::operator==(const Fixed &other) const{
-    return this->getRawBits() == other.getRawBits();
-}
-
-// ne
-bool Fixed::operator!=(const Fixed &other) const{
-    return this->getRawBits() != other.getRawBits();
-}
-
-// operator
-
-// add 
-Fixed Fixed::operator+(const Fixed &other) const {
-    Fixed result;
-    result.setRawBits(this->getRawBits() + other.getRawBits());
-    return result;
-}
-
-// sub
-Fixed Fixed::operator-(const Fixed &other) const {
-    Fixed result;
-    result.setRawBits(this->getRawBits() - other.getRawBits());
-    return result;
-}
-
-// mul
-Fixed Fixed::operator*(const Fixed &other) const {
-    Fixed result;
-    // 1. casting to `long long` and preventing overflow
-    i64 temp = (i64)this->getRawBits() * (i64)other.getRawBits();
-    
-    // 2. undo the result
-    result.setRawBits((i32)(temp >> _fractionalBits));
-    return result;
-}
-
-// div
-Fixed Fixed::operator/(const Fixed &other) const {
-    Fixed result;
-    i64 temp = (i64)this->getRawBits() << _fractionalBits;
-
-    if (other.getRawBits()!= 0) {
-        result.setRawBits((i32)(temp / other.getRawBits()));
-    } else {
-        std::cerr << "Error: Division by zero" << std::endl;
-    }
-    return result;
-}
-// ^^^ operators ^^^
-
-// === min max ===
-
-
-
-// ^^^ min max ^^^
-
-
 // === normal methods ===
 i32 Fixed::getRawBits(void) const {
-	std::cout << "getRawBits member function called" << std::endl;
 	return this->_fixedPointValue;
 }
 

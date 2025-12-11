@@ -26,6 +26,34 @@ public:
     // operators
 	Fixed &operator=(const Fixed &other); // assign 
 
+    // compare
+    bool operator>(const Fixed &other) const; // gt
+    bool operator>=(const Fixed &other) const;// ge
+    bool operator<(const Fixed &other) const; // lt
+    bool operator<=(const Fixed &other) const;// le
+    bool operator==(const Fixed &other) const;// eq
+    bool operator!=(const Fixed &other) const;// ne
+
+    // operator
+    Fixed operator+(const Fixed &other) const; // add 
+    Fixed operator-(const Fixed &other) const; // sub
+    Fixed operator*(const Fixed &other) const; // mul
+    Fixed operator/(const Fixed &other) const; // div
+    
+    // incr decr
+    // prefix
+    Fixed &operator++();
+    Fixed &operator--();
+    // postfix
+    Fixed operator++(int);
+    Fixed operator--(int);
+
+    // min max
+    static Fixed &min(Fixed &a, Fixed &b);
+    static const Fixed &min(const Fixed &a, const Fixed &b);
+    static Fixed &max(Fixed &a, Fixed &b);
+    static const Fixed &max(const Fixed &a, const Fixed &b);
+
     // otherwise
 	i32 getRawBits(void) const;
 	void setRawBits(i32 const raw);
